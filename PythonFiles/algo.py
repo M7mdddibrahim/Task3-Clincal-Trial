@@ -36,8 +36,8 @@ class MainWindow(QtWidgets.QMainWindow):
     def add_patient(self):
         sex = self.comboBox.currentText()
         if self.lineEdit.text() :
-            if self.lineEdit.text()=='0':
-                QtWidgets.QMessageBox.information(self, 'Failed', 'Please write correct patient age.')
+            if int(self.lineEdit.text())<18:
+                QtWidgets.QMessageBox.information(self, 'Failed', 'Patient must be at least 18 years old.')
                 return
             age = int(self.lineEdit.text())
         else:
@@ -51,7 +51,7 @@ class MainWindow(QtWidgets.QMainWindow):
     def select_patient(self):
         sex = self.comboBox_4.currentText()
         age_range = self.lineEdit_2.text()
-        if '-' in age_range:
+        if '-' in age_range and len(age_range)==5:
             age_min, age_max = map(int, age_range.split('-'))
         else:
             age_min = None
